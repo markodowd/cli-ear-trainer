@@ -32,14 +32,14 @@ pub enum Note {
 
 #[derive(Debug)]
 pub struct NoteInfo {
-    pub frequency: f64,
+    pub frequency: f32,
     pub answer: String,
     pub alt_answer: Option<String>,
 }
 
 pub fn create_note_map() -> HashMap<Note, NoteInfo> {
     let notes = vec![
-        (Note::A3, 220.0, "A", None),
+        (Note::A3, 220.00, "A", None),
         (Note::ASharp3, 233.08, "A", Some("Bb".to_string())),
         (Note::B3, 246.94, "B", None),
         (Note::C4, 261.63, "C", None),
@@ -49,9 +49,9 @@ pub fn create_note_map() -> HashMap<Note, NoteInfo> {
         (Note::E4, 329.63, "E", None),
         (Note::F4, 349.23, "F", None),
         (Note::FSharp4, 369.99, "F#", Some("Gb".to_string())),
-        (Note::G4, 392.0, "G", None),
+        (Note::G4, 392.00, "G", None),
         (Note::GSharp4, 415.3, "G#", Some("Ab".to_string())),
-        (Note::A4, 440.0, "A", None),
+        (Note::A4, 440.00, "A", None),
         (Note::ASharp4, 466.16, "A#", Some("Bb".to_string())),
         (Note::B4, 493.88, "B", None),
         (Note::C5, 523.25, "C", None),
@@ -63,7 +63,7 @@ pub fn create_note_map() -> HashMap<Note, NoteInfo> {
         (Note::FSharp5, 739.99, "F#", Some("Gb".to_string())),
         (Note::G5, 783.99, "G", None),
         (Note::GSharp5, 830.61, "G#", Some("Ab".to_string())),
-        (Note::A5, 880.0, "A", None),
+        (Note::A5, 880.00, "A", None),
     ];
 
     let mut note_map = HashMap::new();

@@ -1,18 +1,22 @@
 mod notes;
+use rodio::source::SineWave;
+use rodio::{OutputStream, Sink};
 
 fn main() {
     let note_map = notes::create_note_map();
+    let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+    let sink = Sink::try_new(&stream_handle).unwrap();
 
     loop {
         let random_note = notes::get_random_note(&note_map);
+
         if let Some(note_info) = note_map.get(random_note) {
             println!("Random note: {:?} => {:?}", random_note, note_info);
-        }
 
-        // Ask the user to guess the note that is in NoteInfo.answer or NoteInfo.alt_answer
-        // If the user guesses correctly, print "Correct!"
-        // If the user guesses incorrectly, print "Incorrect! The correct answer is: <answer>"
-        // If the user types "exit", break the loop
+            let source = SineWave::new(note_info.frequency);
+
+            sink.append(source);
+        }
 
         let mut input = String::new();
         std::io::stdin().read_line(&mut input).unwrap();
@@ -39,6 +43,6 @@ fn main() {
             }
         }
 
-        println!();
+        sink.stop();
     }
 }
